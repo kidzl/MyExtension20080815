@@ -1,0 +1,10 @@
+{
+    "Service": "/MDKListTest/Services/service1.service",
+    "_Type": "Action.Type.ODataService.Initialize",
+    "ShowActivityIndicator": true,
+    "OnSuccess": "/MDKListTest/Actions/Service/InitializeOnlineSuccessMessage.action",
+    "OnFailure": "/MDKListTest/Actions/Service/InitializeOnlineFailureMessage.action",
+    "ActionResult": {
+        "_Name": "init"
+    }
+}

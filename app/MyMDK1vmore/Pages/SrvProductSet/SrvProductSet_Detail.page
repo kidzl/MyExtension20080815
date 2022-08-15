@@ -1,0 +1,155 @@
+{
+	"Caption": "SrvProductSet",
+	"ActionBar": {
+		"Items": []
+	},
+	"Controls": [
+		{
+			"Sections": [
+				{
+					"ObjectHeader": {
+						"DetailImage": "",
+						"HeadlineText": "{Name}",
+						"Subhead": "{ProductID}",
+						"Tags": [],
+						"BodyText": "",
+						"Footnote": "{Category}",
+						"Description": "{TypeCode}",
+						"StatusText": "{NameLanguage}",
+						"StatusImage": "",
+						"SubstatusImage": "",
+						"SubstatusText": "{Description}"
+					},
+					"_Type": "Section.Type.ObjectHeader"
+				},
+				{
+					"KeyAndValues": [
+						{
+							"KeyName": "ProductID",
+							"Value": "{ProductID}"
+						},
+						{
+							"KeyName": "TypeCode",
+							"Value": "{TypeCode}"
+						},
+						{
+							"KeyName": "Category",
+							"Value": "{Category}"
+						},
+						{
+							"KeyName": "Name",
+							"Value": "{Name}"
+						},
+						{
+							"KeyName": "NameLanguage",
+							"Value": "{NameLanguage}"
+						},
+						{
+							"KeyName": "Description",
+							"Value": "{Description}"
+						},
+						{
+							"KeyName": "DescriptionLanguage",
+							"Value": "{DescriptionLanguage}"
+						},
+						{
+							"KeyName": "SupplierID",
+							"Value": "{SupplierID}"
+						},
+						{
+							"KeyName": "SupplierName",
+							"Value": "{SupplierName}"
+						},
+						{
+							"KeyName": "TaxTarifCode",
+							"Value": "{TaxTarifCode}"
+						},
+						{
+							"KeyName": "MeasureUnit",
+							"Value": "{MeasureUnit}"
+						},
+						{
+							"KeyName": "WeightMeasure",
+							"Value": "{WeightMeasure}"
+						},
+						{
+							"KeyName": "WeightUnit",
+							"Value": "{WeightUnit}"
+						},
+						{
+							"KeyName": "CurrencyCode",
+							"Value": "{CurrencyCode}"
+						},
+						{
+							"KeyName": "Price",
+							"Value": "{Price}"
+						},
+						{
+							"KeyName": "Width",
+							"Value": "{Width}"
+						},
+						{
+							"KeyName": "Depth",
+							"Value": "{Depth}"
+						},
+						{
+							"KeyName": "Height",
+							"Value": "{Height}"
+						},
+						{
+							"KeyName": "DimUnit",
+							"Value": "{DimUnit}"
+						},
+						{
+							"KeyName": "CreatedAt",
+							"Value": "{CreatedAt}"
+						},
+						{
+							"KeyName": "ChangedAt",
+							"Value": "{ChangedAt}"
+						}
+					],
+					"Layout": {
+						"NumberOfColumns": 2
+					},
+					"MaxItemCount": 1,
+					"_Name": "SectionKeyValue0",
+					"_Type": "Section.Type.KeyValue"
+				},
+				{
+					"Header": {
+						"Caption": "notes"
+					},
+					"ObjectCell": {
+						"AccessoryType": "disclosureIndicator",
+						"Description": "{productSet_ProductID}",
+						"DetailImage": "",
+						"DetailImageIsCircular": false,
+						"Icons": [],
+						"StatusImage": "",
+						"Title": "{notes}",
+						"Footnote": "",
+						"PreserveIconStackSpacing": false,
+						"StatusText": "",
+						"Subhead": "{rate}",
+						"SubstatusText": "",
+						"OnPress": "/MyMDK1vmore/Actions/Srvnotes/NavToSrvnotes_Detail.action"
+					},
+					"Target": {
+						"EntitySet": "{#Property:@odata.readLink}/notes",
+						"Service": "/MyMDK1vmore/Services/service1.service"
+					},
+					"_Type": "Section.Type.ObjectTable"
+				}
+			],
+			"DataSubscriptions": [
+				"Srvnotes"
+			],
+			"_Type": "Control.Type.SectionedTable",
+			"_Name": "SectionedTable"
+		}
+	],
+	"_Type": "Page",
+	"_Name": "SrvProductSet_Detail",
+	"PrefersLargeCaption": true
+}

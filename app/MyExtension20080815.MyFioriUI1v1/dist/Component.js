@@ -1,0 +1,1 @@
+sap.ui.define(["sap/fe/core/AppComponent"],function(e){"use strict";return e.extend("MyExtension20080815.MyFioriUI1v1.Component",{metadata:{manifest:"json"}})});

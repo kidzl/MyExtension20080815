@@ -1,0 +1,56 @@
+{
+	"Caption": "Srvnotes",
+	"ActionBar": {
+		"Items": []
+	},
+	"Controls": [
+		{
+			"Sections": [
+				{
+					"ObjectHeader": {
+						"DetailImage": "",
+						"HeadlineText": "{notes}",
+						"Subhead": "{rate}",
+						"Tags": [],
+						"BodyText": "",
+						"Footnote": "",
+						"Description": "{productSet_ProductID}",
+						"StatusText": "",
+						"StatusImage": "",
+						"SubstatusImage": "",
+						"SubstatusText": ""
+					},
+					"_Type": "Section.Type.ObjectHeader"
+				},
+				{
+					"KeyAndValues": [
+						{
+							"KeyName": "notes",
+							"Value": "{notes}"
+						},
+						{
+							"KeyName": "rate",
+							"Value": "{rate}"
+						},
+						{
+							"KeyName": "productSet_ProductID",
+							"Value": "{productSet_ProductID}"
+						}
+					],
+					"Layout": {
+						"NumberOfColumns": 2
+					},
+					"MaxItemCount": 1,
+					"_Name": "SectionKeyValue0",
+					"_Type": "Section.Type.KeyValue"
+				}
+			],
+			"DataSubscriptions": [],
+			"_Type": "Control.Type.SectionedTable",
+			"_Name": "SectionedTable"
+		}
+	],
+	"_Type": "Page",
+	"_Name": "Srvnotes_Detail",
+	"PrefersLargeCaption": true
+}

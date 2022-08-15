@@ -1,0 +1,58 @@
+{
+	"Caption": "Srvcomments",
+	"ActionBar": {
+		"Items": []
+	},
+	"Controls": [
+		{
+			"Sections": [
+				{
+					"Header": {
+						"UseTopPadding": false
+					},
+					"ObjectCell": {
+						"AccessoryType": "disclosureIndicator",
+						"Description": "",
+						"DetailImage": "",
+						"DetailImageIsCircular": false,
+						"Icons": [],
+						"OnPress": "/MDKListTest/Actions/Srvcomments/NavToSrvcomments_Detail.action",
+						"StatusImage": "",
+						"Title": "{comment}",
+						"Footnote": "",
+						"PreserveIconStackSpacing": false,
+						"StatusText": "",
+						"Subhead": "{productSet_ProductID}",
+						"SubstatusText": ""
+					},
+					"Search": {
+						"Enabled": true,
+						"Placeholder": "Item Search",
+						"BarcodeScanner": true,
+						"Delay": 500,
+						"MinimumCharacterThreshold": 3
+					},
+					"DataPaging": {
+						"ShowLoadingIndicator": true,
+						"LoadingIndicatorText": "Loading more items, please wait..."
+					},
+					"Target": {
+						"EntitySet": "Srvcomments",
+						"Service": "/MDKListTest/Services/service1.service",
+						"QueryOptions": ""
+					},
+					"_Type": "Section.Type.ObjectTable"
+				}
+			],
+			"LoadingIndicator": {
+				"Enabled": true,
+				"Text": "Loading, please wait..."
+			},
+			"_Type": "Control.Type.SectionedTable",
+			"_Name": "SectionedTable"
+		}
+	],
+	"_Type": "Page",
+	"_Name": "Srvcomments_List",
+	"PrefersLargeCaption": true
+}

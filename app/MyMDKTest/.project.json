@@ -1,0 +1,67 @@
+{
+	"Credential": "cf",
+	"CF": {
+		"Target": "",
+		"Organization": "",
+		"Space": "",
+		"Deploy": {
+			"Description": "My SAP application",
+			"WebClient": {
+				"Runtime": "preview",
+				"URL": ""
+			},
+			"Destination": [
+				{
+					"CF": "MyExtension20080815-app-srv",
+					"MDK": "../service/MyExtension20080815/",
+					"URL": ""
+				}
+			]
+		}
+	},
+	"MobileService": {
+		"Type": "standard",
+		"AdminAPI": "",
+		"AppId": "lcap.MyExtension20080815.MyMDKTest",
+		"Destination": []
+	},
+	"Onboarding": {
+		"Schema": "sapmobilesvcs",
+		"TimeZone": "UTC",
+		"URL": ""
+	},
+	"LCAP": {
+		"FullName": "MyExtension20080815_MyMDKTest",
+		"Service": [
+			{
+				"mdk": "MyMDKTest/Services/service1.service",
+				"cap": {
+					"name": "MyExtension20080815Service",
+					"sourcePath": "srv/service.cds",
+					"path": "/service/MyExtension20080815/",
+					"entryPath": "/service/MyExtension20080815",
+					"destination": "MyExtension20080815-app-srv",
+					"value": "0"
+				},
+				"links": [
+					{
+						"entity": "MyExtension20080815Service.Srvcomments",
+						"files": [
+							"MyMDKTest/Pages/Srvcomments/Srvcomments_List.page"
+						]
+					},
+					{
+						"entity": "MyExtension20080815Service.Srvnotes",
+						"files": [
+							"MyMDKTest/Pages/Srvnotes/Srvnotes_List.page"
+						]
+					}
+				]
+			}
+		],
+		"sourceTemplate": {
+			"id": "html5moduletemplates.basicSAPUI5ApplicationProjectModule",
+			"version": "1.40.12"
+		}
+	}
+}

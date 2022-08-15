@@ -1,0 +1,9 @@
+{
+    "DestinationName": "../service/MyExtension20080815/",
+    "OfflineEnabled": false,
+    "LanguageURLParam": "",
+    "OnlineOptions": {},
+    "PathSuffix": "",
+    "SourceType": "Cloud",
+    "ServiceUrl":""
+}

@@ -1,0 +1,58 @@
+{
+	"Caption": "SrvProductSet",
+	"ActionBar": {
+		"Items": []
+	},
+	"Controls": [
+		{
+			"Sections": [
+				{
+					"Header": {
+						"UseTopPadding": false
+					},
+					"ObjectCell": {
+						"AccessoryType": "disclosureIndicator",
+						"Description": "{TypeCode}",
+						"DetailImage": "",
+						"DetailImageIsCircular": false,
+						"Icons": [],
+						"OnPress": "/MDKListTest/Actions/SrvProductSet/NavToSrvProductSet_Detail.action",
+						"StatusImage": "",
+						"Title": "{Name}",
+						"Footnote": "{Category}",
+						"PreserveIconStackSpacing": false,
+						"StatusText": "{NameLanguage}",
+						"Subhead": "{ProductID}",
+						"SubstatusText": "{Description}"
+					},
+					"Search": {
+						"Enabled": true,
+						"Placeholder": "Item Search",
+						"BarcodeScanner": true,
+						"Delay": 500,
+						"MinimumCharacterThreshold": 3
+					},
+					"DataPaging": {
+						"ShowLoadingIndicator": true,
+						"LoadingIndicatorText": "Loading more items, please wait..."
+					},
+					"Target": {
+						"EntitySet": "SrvProductSet",
+						"Service": "/MDKListTest/Services/service1.service",
+						"QueryOptions": ""
+					},
+					"_Type": "Section.Type.ObjectTable"
+				}
+			],
+			"LoadingIndicator": {
+				"Enabled": true,
+				"Text": "Loading, please wait..."
+			},
+			"_Type": "Control.Type.SectionedTable",
+			"_Name": "SectionedTable"
+		}
+	],
+	"_Type": "Page",
+	"_Name": "SrvProductSet_List",
+	"PrefersLargeCaption": true
+}

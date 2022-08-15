@@ -1,0 +1,45 @@
+{
+	"Caption": "Main",
+	"Controls": [
+		{
+			"_Name": "SectionedTable0",
+			"_Type": "Control.Type.SectionedTable",
+			"Sections": [
+				{
+					"Buttons": [
+						{
+							"OnPress": "/MDKListTest/Actions/SrvProductSet/NavToSrvProductSet_List.action",
+							"TextAlignment": "center",
+							"Title": "SrvProductSet"
+						},
+						{
+							"OnPress": "/MDKListTest/Actions/Srvcomments/NavToSrvcomments_List.action",
+							"TextAlignment": "center",
+							"Title": "Srvcomments"
+						},
+						{
+							"OnPress": "/MDKListTest/Actions/Srvnotes/NavToSrvnotes_List.action",
+							"TextAlignment": "center",
+							"Title": "Srvnotes"
+						}
+					],
+					"_Name": "SectionButtonTable0",
+					"_Type": "Section.Type.ButtonTable"
+				}
+			]
+		}
+	],
+	"_Name": "Main",
+	"_Type": "Page",
+	"ToolBar": {
+		"Items": [
+			{
+				"_Name": "LogoutToolbarItem",
+				"_Type": "Control.Type.ToolbarItem",
+				"Caption": "Logout",
+				"OnPress": "/MDKListTest/Actions/Logout.action"
+			}
+		]
+	},
+	"PrefersLargeCaption": true
+}

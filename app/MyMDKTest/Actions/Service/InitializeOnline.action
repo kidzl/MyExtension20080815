@@ -1,0 +1,10 @@
+{
+    "Service": "/MyMDKTest/Services/service1.service",
+    "_Type": "Action.Type.ODataService.Initialize",
+    "ShowActivityIndicator": true,
+    "OnSuccess": "/MyMDKTest/Actions/Service/InitializeOnlineSuccessMessage.action",
+    "OnFailure": "/MyMDKTest/Actions/Service/InitializeOnlineFailureMessage.action",
+    "ActionResult": {
+        "_Name": "init"
+    }
+}

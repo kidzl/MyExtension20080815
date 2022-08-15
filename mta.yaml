@@ -1,0 +1,259 @@
+_schema-version: '3.1'
+ID: MyExtension20080815
+version: 1.0.0
+description: A simple CAP project.
+parameters:
+  deploy_mode: html5-repo
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - rm -rf build/ui-deployer
+        - mkdir -p build/ui-deployer
+        - rm -rf build/dist
+        - mkdir -p build/dist
+    - builder: custom
+      commands:
+        - npm install --production
+        - >-
+          bash -c "cds -v | grep 'cds-dk' || npm i --production --no-save
+          @sap/cds-dk @sap/mdk-tools"
+        - bash -c "export PATH=$PATH:$(pwd)/node_modules/.bin"
+        - cds build --production
+modules:
+  - name: MyExtension20080815-MDKListTest
+    type: html5
+    path: app/MDKListTest
+    build-parameters:
+      builder: custom
+      commands:
+        - mdk build --target module --ui5 --forceUpdate
+        - bash -c "cd Web/MDKModule && rm -rf .npmrc && npm install"
+        - bash -c "cd Web/MDKModule && npm run build"
+        - >-
+          bash -c "mv Web/MDKModule/MDKModule-content.zip
+          ../../build/dist/MDKListTest.zip"
+        - rm -rf Web/MDKModule/dist
+      _artifactName: MDKListTest.zip
+      supported-platforms: []
+      build-result: ../../build/dist
+  - name: MyExtension20080815-MyExtension20080815.MyFioriUI1v1
+    type: html5
+    path: app/MyExtension20080815.MyFioriUI1v1
+    build-parameters:
+      builder: custom
+      commands:
+        - rm -rf dist-zip dist
+        - >-
+          npx -p @ui5/cli ui5 build --dest dist
+          --include-task=generateManifestBundle
+          --include-task=generateCachebusterInfo
+        - mkdir dist-zip
+        - >-
+          bash -c "cd dist && npx bestzip
+          ../dist-zip/MyExtension20080815MyFioriUI1v1.zip *"
+      _artifactName: MyExtension20080815MyFioriUI1v1.zip
+      supported-platforms: []
+      build-result: dist-zip
+  - name: MyExtension20080815-MyMDK1vmore
+    type: html5
+    path: app/MyMDK1vmore
+    build-parameters:
+      builder: custom
+      commands:
+        - mdk build --target module --ui5 --forceUpdate
+        - bash -c "cd Web/MDKModule && rm -rf .npmrc && npm install"
+        - bash -c "cd Web/MDKModule && npm run build"
+        - >-
+          bash -c "mv Web/MDKModule/MDKModule-content.zip
+          ../../build/dist/MyMDK1vmore.zip"
+        - rm -rf Web/MDKModule/dist
+      _artifactName: MyMDK1vmore.zip
+      supported-platforms: []
+      build-result: ../../build/dist
+  - name: MyExtension20080815-MyMDKTest
+    type: html5
+    path: app/MyMDKTest
+    build-parameters:
+      builder: custom
+      commands:
+        - mdk build --target module --ui5 --forceUpdate
+        - bash -c "cd Web/MDKModule && rm -rf .npmrc && npm install"
+        - bash -c "cd Web/MDKModule && npm run build"
+        - >-
+          bash -c "mv Web/MDKModule/MDKModule-content.zip
+          ../../build/dist/MyMDKTest.zip"
+        - rm -rf Web/MDKModule/dist
+      _artifactName: MyMDKTest.zip
+      supported-platforms: []
+      build-result: ../../build/dist
+  - name: MyExtension20080815-db-deployer
+    type: hdb
+    path: gen/db
+    parameters:
+      buildpack: nodejs_buildpack
+    build-parameters:
+      builder: npm
+      ignore:
+        - node_modules
+        - package-lock.json
+    requires:
+      - name: MyExtension20080815-service-uaa
+      - name: MyExtension20080815-service-db
+  - name: MyExtension20080815-srv
+    type: nodejs
+    path: gen/srv
+    parameters:
+      memory: 256MB
+    provides:
+      - name: srv-api
+        properties:
+          srv-url: ${default-url}
+    build-parameters:
+      builder: npm
+      ignore:
+        - node_modules
+        - package-lock.json
+    requires:
+      - name: MyExtension20080815-service-uaa
+      - name: MyExtension20080815-service-db
+      - name: MyExtension20080815-service-destination
+      - name: MyExtension20080815-service-metadata
+      - name: MyExtension20080815-service-connectivity
+      - name: MyExtension20080815-service-logs
+  - name: MyExtension20080815-aux-destinations
+    type: com.sap.application.content
+    parameters:
+      content:
+        subaccount:
+          existing_destinations_policy: update
+          destinations:
+            - Authentication: OAuth2UserTokenExchange
+              Name: MyExtension20080815-service-uaa
+              ServiceInstanceName: MyExtension20080815-uaa
+              ServiceKeyName: MyExtension20080815-uaa-key
+              sap.cloud.service: lcap.MyExtension20080815
+            - Authentication: OAuth2UserTokenExchange
+              Name: MyExtension20080815-app-srv
+              TokenServiceInstanceName: MyExtension20080815-uaa
+              TokenServiceKeyName: MyExtension20080815-uaa-key
+              URL: ~{srv-api/srv-url}
+              sap.cloud.service: lcap.MyExtension20080815
+            - Name: MyExtension20080815-service-html5-apps-repo-host
+              ServiceInstanceName: MyExtension20080815-html5-apps-repo-host
+              ServiceKeyName: MyExtension20080815-html5-apps-repo-host-key
+              sap.cloud.service: lcap.MyExtension20080815
+    build-parameters:
+      no-source: true
+    requires:
+      - name: MyExtension20080815-service-uaa
+        parameters:
+          service-key:
+            name: MyExtension20080815-uaa-key
+      - name: srv-api
+      - name: MyExtension20080815-service-html5-apps-repo-host
+        parameters:
+          service-key:
+            name: MyExtension20080815-html5-apps-repo-host-key
+      - name: MyExtension20080815-service-destination
+        parameters:
+          content-target: true
+  - name: MyExtension20080815-launchpad
+    type: html5
+    path: build/launchpad
+    build-parameters:
+      builder: custom
+      commands:
+        - npm install
+        - >-
+          npx -p @ui5/cli ui5 build --dest dist
+          --include-task=generateManifestBundle
+          --include-task=generateCachebusterInfo
+        - bash -c "cd dist && npx bestzip ../../../build/dist/launchpad.zip *"
+        - rm -rf dist
+      _artifactName: launchpad.zip
+      supported-platforms: []
+      build-result: ../../build/dist
+  - name: MyExtension20080815-aux-ui-deployer
+    type: com.sap.application.content
+    path: build/ui-deployer
+    build-parameters:
+      build-result: resources
+      requires:
+        - name: MyExtension20080815-MDKListTest
+          artifacts:
+            - MDKListTest.zip
+          target-path: resources
+        - name: MyExtension20080815-MyExtension20080815.MyFioriUI1v1
+          artifacts:
+            - MyExtension20080815MyFioriUI1v1.zip
+          target-path: resources
+        - name: MyExtension20080815-MyMDK1vmore
+          artifacts:
+            - MyMDK1vmore.zip
+          target-path: resources
+        - name: MyExtension20080815-MyMDKTest
+          artifacts:
+            - MyMDKTest.zip
+          target-path: resources
+        - name: MyExtension20080815-launchpad
+          artifacts:
+            - launchpad.zip
+          target-path: resources
+    requires:
+      - name: MyExtension20080815-service-html5-apps-repo-host
+        parameters:
+          content-target: true
+resources:
+  - type: org.cloudfoundry.managed-service
+    name: MyExtension20080815-service-uaa
+    parameters:
+      service: xsuaa
+      service-plan: application
+      service-name: MyExtension20080815-uaa
+      path: xs-security.json
+      config:
+        xsappname: MyExtension20080815-${space}
+        role-collections: []
+  - type: org.cloudfoundry.managed-service
+    name: MyExtension20080815-service-db
+    parameters:
+      service: hana
+      service-plan: hdi-shared
+      service-name: MyExtension20080815-db
+  - type: org.cloudfoundry.managed-service
+    name: MyExtension20080815-service-destination
+    parameters:
+      service: destination
+      service-plan: lite
+      service-name: MyExtension20080815-destination
+      config:
+        HTML5Runtime_enabled: true
+        version: 1.0.0
+  - type: org.cloudfoundry.user-provided-service
+    name: MyExtension20080815-service-metadata
+    parameters:
+      service: metadata
+      service-plan: standard
+      service-name: MyExtension20080815-metadata
+      config:
+        default-domain: ${default-domain}
+  - type: org.cloudfoundry.managed-service
+    name: MyExtension20080815-service-connectivity
+    parameters:
+      service: connectivity
+      service-plan: lite
+      service-name: MyExtension20080815-connectivity
+  - type: org.cloudfoundry.managed-service
+    name: MyExtension20080815-service-logs
+    parameters:
+      service: application-logs
+      service-plan: lite
+      service-name: MyExtension20080815-logs
+  - type: org.cloudfoundry.managed-service
+    name: MyExtension20080815-service-html5-apps-repo-host
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-host
+      service-name: MyExtension20080815-html5-apps-repo-host

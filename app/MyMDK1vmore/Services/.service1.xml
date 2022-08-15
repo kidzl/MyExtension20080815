@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+  <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+  </edmx:Reference>
+  <edmx:DataServices>
+    <Schema Namespace="MyExtension20080815Service" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+      <EntityContainer Name="EntityContainer">
+        <EntitySet Name="SrvProductSet" EntityType="MyExtension20080815Service.SrvProductSet">
+          <NavigationPropertyBinding Path="notes" Target="Srvnotes"/>
+          <NavigationPropertyBinding Path="comments" Target="Srvcomments"/>
+        </EntitySet>
+        <EntitySet Name="Srvcomments" EntityType="MyExtension20080815Service.Srvcomments">
+          <NavigationPropertyBinding Path="productSet" Target="SrvProductSet"/>
+        </EntitySet>
+        <EntitySet Name="Srvnotes" EntityType="MyExtension20080815Service.Srvnotes">
+          <NavigationPropertyBinding Path="productSet" Target="SrvProductSet"/>
+        </EntitySet>
+      </EntityContainer>
+      <EntityType Name="SrvProductSet">
+        <Key>
+          <PropertyRef Name="ProductID"/>
+        </Key>
+        <Property Name="ProductID" Type="Edm.String" MaxLength="10" Nullable="false"/>
+        <Property Name="TypeCode" Type="Edm.String" MaxLength="2"/>
+        <Property Name="Category" Type="Edm.String" MaxLength="40"/>
+        <Property Name="Name" Type="Edm.String" MaxLength="255"/>
+        <Property Name="NameLanguage" Type="Edm.String" MaxLength="2"/>
+        <Property Name="Description" Type="Edm.String" MaxLength="255"/>
+        <Property Name="DescriptionLanguage" Type="Edm.String" MaxLength="2"/>
+        <Property Name="SupplierID" Type="Edm.String" MaxLength="10"/>
+        <Property Name="SupplierName" Type="Edm.String" MaxLength="80"/>
+        <Property Name="TaxTarifCode" Type="Edm.Byte"/>
+        <Property Name="MeasureUnit" Type="Edm.String" MaxLength="3"/>
+        <Property Name="WeightMeasure" Type="Edm.Decimal" Scale="3" Precision="13"/>
+        <Property Name="WeightUnit" Type="Edm.String" MaxLength="3"/>
+        <Property Name="CurrencyCode" Type="Edm.String" MaxLength="5"/>
+        <Property Name="Price" Type="Edm.Decimal" Scale="3" Precision="16"/>
+        <Property Name="Width" Type="Edm.Decimal" Scale="3" Precision="13"/>
+        <Property Name="Depth" Type="Edm.Decimal" Scale="3" Precision="13"/>
+        <Property Name="Height" Type="Edm.Decimal" Scale="3" Precision="13"/>
+        <Property Name="DimUnit" Type="Edm.String" MaxLength="3"/>
+        <Property Name="CreatedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="ChangedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <NavigationProperty Name="notes" Type="Collection(MyExtension20080815Service.Srvnotes)" Partner="productSet"/>
+        <NavigationProperty Name="comments" Type="MyExtension20080815Service.Srvcomments" Partner="productSet">
+          <ReferentialConstraint Property="ProductID" ReferencedProperty="productSet_ProductID"/>
+        </NavigationProperty>
+      </EntityType>
+      <EntityType Name="Srvcomments">
+        <Key>
+          <PropertyRef Name="commentID"/>
+        </Key>
+        <Property Name="commentID" Type="Edm.Guid" Nullable="false"/>
+        <Property Name="comment" Type="Edm.String" MaxLength="100"/>
+        <NavigationProperty Name="productSet" Type="MyExtension20080815Service.SrvProductSet" Partner="comments">
+          <ReferentialConstraint Property="productSet_ProductID" ReferencedProperty="ProductID"/>
+        </NavigationProperty>
+        <Property Name="productSet_ProductID" Type="Edm.String" MaxLength="10"/>
+      </EntityType>
+      <EntityType Name="Srvnotes">
+        <Key>
+          <PropertyRef Name="noteID"/>
+        </Key>
+        <Property Name="noteID" Type="Edm.Guid" Nullable="false"/>
+        <Property Name="notes" Type="Edm.String" MaxLength="100"/>
+        <Property Name="rate" Type="Edm.Int32"/>
+        <NavigationProperty Name="productSet" Type="MyExtension20080815Service.SrvProductSet" Partner="notes">
+          <ReferentialConstraint Property="productSet_ProductID" ReferencedProperty="ProductID"/>
+        </NavigationProperty>
+        <Property Name="productSet_ProductID" Type="Edm.String" MaxLength="10"/>
+      </EntityType>
+      <Annotations Target="MyExtension20080815Service.Srvcomments/commentID">
+        <Annotation Term="Core.Computed" Bool="true"/>
+      </Annotations>
+      <Annotations Target="MyExtension20080815Service.Srvnotes/noteID">
+        <Annotation Term="Core.Computed" Bool="true"/>
+      </Annotations>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>
